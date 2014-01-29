@@ -1,6 +1,7 @@
-ASUP-Specification
+#ASUP-Specification
+===
 
-# General
+## General
 
 * All communication to the server must take place over HTTP POST
 
@@ -28,13 +29,13 @@ ASUP-Specification
 
         * gamecategories
 
-# Authentication
+## Authentication
 
 * Both the "username" and the “password” must be submitted on all requests that require authentication so no authentication is stored in the client.
 
     * The client can store the fields locally if it so chooses, that’s up to the client developer to decide.
 
-# Categories
+## Categories
 
 * The client sends a request to the server with a specific parameter (type=categories)
 
@@ -42,7 +43,7 @@ ASUP-Specification
 
     * EG, if we have id’s for categories, the value would be the label (Ocarina of Time Any %) and the key would be the id ( 54 ).
 
-# Games
+## Games
 
 * See categories with "type=gamelist" instead
 
@@ -60,33 +61,113 @@ ASUP-Specification
 
 * The server must respond to requests, not just insert/handle them.
 
-# Examples
+## Examples
 
-Verify Login: {type:verifylogin, username:"user1", password:"12345"}
+Verify Login:
 
-    which returns either {result:success} or {result:fail, message:"Invalid login info"}
+```
+{
+	type: verifylogin, 
+	username: "user1", 
+	password:"12345"
+}
+```
 
-Submit Time: {type:submitrun, username:"user1", password:"12345", game:"smw", category:"96 Exit", version:"SNES NTSC", runtime:"01:29:59",comment:"Good run",splits:[00:15:23, 00:41:34, 01:13:53, 01:29:59]}
+which returns either
 
-    which returns either {result:success} or {result:fail, message:"Error message"}
+```
+{
+	result: success 
+} 
+```
+
+or 
+
+```
+{
+    result: fail, 
+    message: "Invalid login info"
+}
+```
+
+Submit Time:
+
+```
+{
+    type:submitrun, 
+    username: "user1", 
+    password: "12345", 
+    game: "smw", 
+    category: "96 Exit", 
+    version: "SNES NTSC", 
+    runtime: "01:29:59",
+    comment: "Good run",
+    splits: [00:15:23, 00:41:34, 01:13:53, 01:29:59] 
+}
+```
+which returns either 
+
+```
+{
+	result: success
+} 
+```
+or 
+
+```
+{
+	result: fail, 
+	message: "Error message"	
+}
+```
 
 Game list: {type:gamelist}
+Returns a list with the key as whatever unique key the server uses, and the name as the value
 
-    which returns a list with the key as whatever unique key the server uses, and the name as the value
+```
+{
+	result: success, 
+	data: {
+		mm1: "Megaman 1", 
+		smw: "Super Mario World"
+		}
+	}
+```
+or
 
-    {result:success, data:{mm1:"Megaman 1", smw:"Super Mario World"}} or {result:fail, message:"error message"}
+```
+{
+	result: fail, 
+	message: "error message"
+}
+```
 
 Game category list: {type:gamecategories, game:smw}
+Returns a list with the key as whatever unique key the server uses, and the description as the value
 
-    which returns a list with the key as whatever unique key the server uses, and the description as the value
+```
+{
+	result: success, 
+	data: {
+		1: "96 Exit", 
+		2: "any%"
+	}
+}
+```
+or
 
-    {result:success, data:{1:"96 Exit", 2:"any%"}} or {result:fail, message:"error message"}
+```
+{
+	result: fail, 
+	message: "error message"
+}
+```
 
-# Thoughts
+## Thoughts
 
 * Should we have the client detect if a site supports it? Maybe just a meta tag on the start page with an url to the submission endpoint?
 
-# Known endpoints
+## Known endpoints
 
 Finished
 
@@ -96,6 +177,6 @@ In development
 
 [http://www.pbtracker.net/](http://www.pbtracker.net/)??????
 
-# Testing
+## Testing
 
 [Test page](http://kokarn.com/assptest.php) A simple test page to simulate HTTP POST requests
