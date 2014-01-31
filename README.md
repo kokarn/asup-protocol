@@ -171,7 +171,7 @@ or
 
 Finished
 
-[http://allspeedruns.com/assp/](http://allspeedruns.com/assp/)
+[http://allspeedruns.com/asup/](http://allspeedruns.com/asup/)
 
 In development
 
