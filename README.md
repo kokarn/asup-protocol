@@ -18,16 +18,12 @@
 * All requests to the server must have a "type" parameter that tells the server what kind of request it is
 
     * Current paremeters are
-
         * submitrun
-
         * categories
-
         * verifylogin
-
         * gamelist
-
         * gamecategories
+        * worldrecord
 
 ## Authentication
 
@@ -46,6 +42,18 @@
 ## Games
 
 * See categories with "type=gamelist" instead
+
+## World Records
+
+* The client sends a request to the server with type=worldrecord
+    *   required params:
+        * category: The category to get the record for     
+
+
+* The server responds with an array with a name, time and "isAccurate" parameters. 
+
+* isAccurate is set to a truthy value if the server believes the time sent is the current world record, else it's set to a falsy value.
+
 
 # Submission
 
@@ -67,7 +75,7 @@ Verify Login:
 
 ```
 {
-	type: verifylogin, 
+    type: verifylogin, 
 	username: "user1", 
 	password:"12345"
 }
